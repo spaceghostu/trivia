@@ -3,31 +3,23 @@ import { StyleSheet, Text, View } from 'react-native'
 
 export default function Logo() {
     return (
-        <View>
-            <Text style={styles.icon}>?</Text>
-            <Text style={styles.trivia}>Trivia</Text>
-            <Text style={styles.quiz}>QUIZ</Text>
+        <View style={styles.root}>
+            <Text style={styles.text}>QU<View><Text style={styles.qmark}>&#xBF;</Text></View>Z</Text>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    trivia: {
-        fontSize: 56,
-        transform: [{ scaleY: 0.6 }],
-        color: '#109E94',
+    root: {
+        alignItems: 'center',
     },
-    quiz: {
+    text: {
         fontSize: 58,
-        top: -30,
-        fontWeight: '200',
+        color: '#109E94'
     },
-    icon: {
-        fontSize: 160,
-        color: '#107D9E',
-        position: 'absolute',
-        top: -35,
-        left: 64,
-        transform: [{ rotateZ: '20deg' }]
+    qmark: {
+        bottom: 8,
+        fontSize: 58,
+        color: '#EB6300',
     }
 })
