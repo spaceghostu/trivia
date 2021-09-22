@@ -6,6 +6,8 @@ import TabsNavigation from './screens/TabsNavigation';
 import QuizScreen from './screens/QuizScreen';
 import { Provider } from 'react-redux';
 import store from './store';
+import LobbyScreen from './screens/LobbyScreen';
+import GameOverScreen from './screens/GameOverScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,8 +22,18 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
+            name="Lobby"
+            component={LobbyScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             name="Quiz"
             component={QuizScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="GameOver"
+            component={GameOverScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

@@ -10,7 +10,7 @@ export default function MainScreen({ navigation }) {
             <Container style={styles.root}>
                 <Logo />
                 <Button
-                    onPress={() => navigation.navigate('Quiz')}
+                    onPress={() => navigation.navigate('Lobby')}
                     title="Start"
                     style={styles.button}
                 />

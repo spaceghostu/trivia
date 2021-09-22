@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { DEFAULT_COLORS } from '../constants';
 
 export default function Logo() {
     return (
@@ -15,11 +16,11 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 58,
-        color: '#109E94'
+        color: DEFAULT_COLORS.primaryDark
     },
     qmark: {
         bottom: 8,
         fontSize: 58,
-        color: '#EB6300',
+        color: DEFAULT_COLORS.accentDark,
     }
 })

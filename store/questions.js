@@ -2,8 +2,10 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 export const fetchQuestions = createAsyncThunk(
     'questions/fetch',
-    async () => {
-        const response = await fetch('https://api.trivia.willfry.co.uk/questions?limit=10');
+    async (category) => {
+        const response = await fetch(
+            `https://api.trivia.willfry.co.uk/questions?limit=10&categories=${category}`
+        );
         return response.json()
     }
 )
@@ -32,7 +34,7 @@ export const questionsSlice = createSlice({
                     state.currentRequestId === requestId
                 ) {
                     state.loading = 'idle'
-                    state.questions.push(action.payload)
+                    state.questions = action.payload
                     state.currentRequestId = undefined
                 }
             })
