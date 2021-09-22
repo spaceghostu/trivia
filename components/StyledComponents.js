@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
+import { ActivityIndicator } from 'react-native';
 
 export const Container = styled.View`
     justify-content: center;
@@ -27,3 +28,7 @@ const ButtonText = styled.Text`
 	color: white;
 	text-align: center;
 `;
+
+export const Loader = styled.ActivityIndicator`
+    marginTop: 200px;
+`
