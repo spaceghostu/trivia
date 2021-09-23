@@ -2,12 +2,21 @@ import React from 'react'
 import { StyleSheet, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Categories, Container, Picker, SafeAreaContainer } from '../components/StyledComponents';
-import { setCategory } from '../store/game';
+import { resetScore, setCategory } from '../store/game';
 
 export default function LobbyScreen({ navigation }) {
 
     const dispatch = useDispatch();
     const { category } = useSelector(state => state.game);
+    const [init, setInit] = useState(false);
+
+    useEffect(() => {
+        if (!init) {
+            dispatch(resetScore())
+            dispatch(setCategory(null))
+            setInit(true)
+        }
+    })
 
     return (
         <SafeAreaContainer>

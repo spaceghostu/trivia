@@ -11,12 +11,15 @@ export const gameSlice = createSlice({
         incrementScore: (state) => update(state, {
             score: { $apply: (val) => val + 1 }
         }),
+        resetScore: (state) => update(state, {
+            score: { $set: 0 }
+        }),
         setCategory: (state, action) => update(state, {
             category: { $set: action.payload }
         })
     },
 })
 
-export const { incrementScore, setCategory } = gameSlice.actions
+export const { incrementScore, setCategory, resetScore } = gameSlice.actions
 
 export default gameSlice.reducer
