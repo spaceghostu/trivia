@@ -1,6 +1,13 @@
+import moment from 'moment';
 import React from 'react';
+import { Text } from 'react-native';
 import styled from 'styled-components/native';
 import { DEFAULT_COLORS } from '../constants';
+
+export const SafeAreaContainer = styled.SafeAreaView`
+    height: 100%;
+    background-color: ${DEFAULT_COLORS.accentLight};
+`
 
 export const Container = styled.View`
     justify-content: center;
@@ -121,4 +128,67 @@ export const Picker = styled.Picker`
 
 export const Categories = styled.View`
     margin-bottom: 30px;
+`
+
+export const Score = ({ score }) => (
+    <ScoreContainer>
+        <ScoreColumn>
+            <ScoreDate>{moment(score.date).format('MMMM Do YYYY hh:mm A')}</ScoreDate>
+            <ScoreCategory>{
+                score.category === 'literature' ? 'Art and literature' :
+                    (score.category.charAt(0).toUpperCase() + score.category.slice(1)).replaceAll('_', ' ')
+            }</ScoreCategory>
+        </ScoreColumn>
+        <ScoreColumn style={{ alignItems: 'flex-end', paddingRight: 10 }}>
+            <ScoreScore>{score.score}/10</ScoreScore>
+        </ScoreColumn>
+    </ScoreContainer>
+)
+
+const ScoreContainer = styled.View`
+    padding: 10px;
+    background-color: ${DEFAULT_COLORS.primary};
+    margin: 5px;
+    width: 100%;
+    flex-direction: row;
+    border-radius: 4px;
+`
+const ScoreColumn = styled.View`
+    flex: 1 1 50%;
+`
+const ScoreDate = styled.Text`
+    color: white;
+    opacity: 0.75;
+`
+
+const ScoreScore = styled.Text`
+    color: white;
+    font-size: 32px;
+`
+
+const ScoreCategory = styled.Text`
+    color: white;
+    font-size: 18px;
+`
+
+
+export const ScoreCard = ({ score }) => (
+    <ScoreCardContainer>
+        <Text style={{ color: 'white' }}>You scored...</Text>
+        <ScoreCardValue>{score}/10</ScoreCardValue>
+    </ScoreCardContainer>
+)
+
+const ScoreCardContainer = styled.View`
+    padding: 40px;
+    align-items: center;
+    justify-content: center;
+    background-color: ${DEFAULT_COLORS.primary};
+    border-radius: 4px;
+    margin-top: 80px;
+    margin-bottom: 80px;
+`
+const ScoreCardValue = styled.Text`
+    font-size: 64px;
+    color: white;
 `

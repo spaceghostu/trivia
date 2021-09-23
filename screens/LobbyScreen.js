@@ -1,8 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Categories, Container, Picker } from '../components/StyledComponents';
+import { Button, Categories, Container, Picker, SafeAreaContainer } from '../components/StyledComponents';
 import { setCategory } from '../store/game';
 
 export default function LobbyScreen({ navigation }) {
@@ -11,7 +10,7 @@ export default function LobbyScreen({ navigation }) {
     const { category } = useSelector(state => state.game);
 
     return (
-        <SafeAreaView>
+        <SafeAreaContainer>
             <Container style={styles.root}>
                 <Categories>
                     <Text>Select a category...</Text>
@@ -29,7 +28,7 @@ export default function LobbyScreen({ navigation }) {
                 <Button title="Start" onPress={() => navigation.navigate("Quiz")} disabled={!category} />
                 <Button title="Quit" onPress={() => navigation.navigate("Main")} />
             </Container>
-        </SafeAreaView>
+        </SafeAreaContainer>
     )
 }
 

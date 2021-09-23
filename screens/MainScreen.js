@@ -1,12 +1,11 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import Logo from '../components/Logo'
-import { Container, Button } from '../components/StyledComponents'
+import { Container, Button, SafeAreaContainer } from '../components/StyledComponents'
 
 export default function MainScreen({ navigation }) {
     return (
-        <SafeAreaView>
+        <SafeAreaContainer>
             <Container style={styles.root}>
                 <Logo />
                 <Button
@@ -15,7 +14,7 @@ export default function MainScreen({ navigation }) {
                     style={styles.button}
                 />
             </Container>
-        </SafeAreaView>
+        </SafeAreaContainer>
     )
 }
 

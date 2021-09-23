@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Animated, StyleSheet, Text, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchQuestions } from '../store/questions';
-import { Container, Loader, Question, QuestionHeader, Answers, AnswerButton, Button, QuestionHeaderText } from '../components/StyledComponents';
+import { Container, Loader, Question, QuestionHeader, Answers, AnswerButton, Button, QuestionHeaderText, SafeAreaContainer } from '../components/StyledComponents';
 import { incrementScore } from '../store/game';
 import { shuffle } from '../utils';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
+import { saveScore } from '../store/scoreboard';
 
 
 export default function QuizScreen({ navigation }) {
@@ -33,18 +33,24 @@ export default function QuizScreen({ navigation }) {
         setSelectedIndex(index);
         setIsPlaying(false);
         setReveal(true);
+        if (correct) dispatch(incrementScore());
         setTimeout(() => {
             setReveal(false);
             setActiveQuestionIndex(val => {
-                if (val === questions.length - 1) navigation.navigate('GameOver')
+                if (val === questions.length - 1) {
+                    dispatch(saveScore({
+                        score,
+                        category,
+                        date: Date.now(),
+                    }))
+                    navigation.navigate('GameOver')
+                }
                 else {
                     setActiveQuestion(_parseQuestion(questions[val + 1]))
                     setIsPlaying(true);
                     return val + 1
                 }
             });
-
-            if (correct) dispatch(incrementScore());
         }, 2000);
     }
 
@@ -57,17 +63,23 @@ export default function QuizScreen({ navigation }) {
         }
     }, [dispatch, questions, activeQuestion, activeQuestionIndex, category]);
 
-    if (loading === 'pending' || !activeQuestion) return <Loader />
+    if (loading === 'pending' || !activeQuestion) return (
+        <SafeAreaContainer>
+            <Loader />
+        </SafeAreaContainer>
+    )
 
     if (error) return (
-        <Container>
-            <Text>{error}</Text>
-            <Button title="Retry" onPress={() => dispatch(fetchQuestions())} />
-        </Container>
+        <SafeAreaContainer>
+            <Container>
+                <Text>{error}</Text>
+                <Button title="Retry" onPress={() => dispatch(fetchQuestions())} />
+            </Container>
+        </SafeAreaContainer>
     )
 
     return (
-        <SafeAreaView>
+        <SafeAreaContainer>
             <Container>
                 <QuestionHeader>
                     <QuestionHeaderText style={{ fontSize: 18 }}>{activeQuestion.category}</QuestionHeaderText>
@@ -114,7 +126,7 @@ export default function QuizScreen({ navigation }) {
                 </Answers>
                 {/* <Button onPress={() => navigation.navigate('Main')} title="Main" /> */}
             </Container>
-        </SafeAreaView>
+        </SafeAreaContainer>
     )
 }
 
